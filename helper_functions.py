@@ -147,7 +147,7 @@ def multiclass_validation_loop(model: torch.nn.Module,
 
   test_loss_list.append(test_loss)
   test_acc_list.append(test_acc)
-  print(f"Train Loss: {test_loss:.5f} | Train Acc: {test_acc:.2f}%\n")
+  print(f"Val Loss: {test_loss:.5f} | Val Acc: {test_acc:.2f}%\n")
 
 
 # Evaluate the model based testing data
