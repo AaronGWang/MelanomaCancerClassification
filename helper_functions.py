@@ -110,8 +110,8 @@ def multiclass_validation_loop(model: torch.nn.Module,
               validation_dataloader: torch.utils.data.DataLoader,
               loss_fn: torch.nn.Module,
               accuracy_fn,
-              val_loss_list: list,
-              val_acc_list: list):
+              test_loss_list: list,
+              test_acc_list: list):
   """Validates a model on a set of data.
 
   Args:
@@ -141,8 +141,8 @@ def multiclass_validation_loop(model: torch.nn.Module,
     test_loss /= len(validation_dataloader)
     test_acc /= len(validation_dataloader)
 
-  val_loss_list.append(test_loss)
-  val_acc_list.append(test_acc)
+  test_loss_list.append(test_loss)
+  test_acc_list.append(test_acc)
   print(f"Train Loss: {test_loss:.5f} | Train Acc: {test_acc:.2f}%\n")
 
 
