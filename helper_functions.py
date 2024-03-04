@@ -64,7 +64,8 @@ def multiclass_train_loop(model: torch.nn.Module,
                optimizer: torch.optim.Optimizer,
                accuracy_fn,
                train_loss_list: list,
-               train_acc_list: list):
+               train_acc_list: list,
+               device: torch.device):
     """Trains a model for one epoch on a set of data.
 
     Args:
@@ -85,6 +86,7 @@ def multiclass_train_loop(model: torch.nn.Module,
     model.train()
 
     for batch, (X, y) in enumerate(train_dataloader):
+      X, y = X.to(device), y.to(device)
 
       y_logit = model(X)
 
@@ -111,7 +113,8 @@ def multiclass_validation_loop(model: torch.nn.Module,
               loss_fn: torch.nn.Module,
               accuracy_fn,
               test_loss_list: list,
-              test_acc_list: list):
+              test_acc_list: list,
+              device: torch.device):
   """Validates a model on a set of data.
 
   Args:
@@ -132,6 +135,7 @@ def multiclass_validation_loop(model: torch.nn.Module,
 
   with torch.inference_mode():
     for X, y in validation_dataloader:
+      X, y = X.to(device), y.to(device)
 
       test_logit = model(X)
 
@@ -150,7 +154,8 @@ def multiclass_validation_loop(model: torch.nn.Module,
 def eval_model(model: torch.nn.Module,
                test_dataloader: torch.utils.data.DataLoader,
                loss_fn: torch.nn.Module,
-               accuracy_fn):
+               accuracy_fn,
+               device: torch.device):
   """Evaluates a model on a set of data.
   Args:
       model (torch.nn.Module): a PyTorch model instance.
@@ -165,6 +170,7 @@ def eval_model(model: torch.nn.Module,
   model.eval()
   with torch.inference_mode():
     for X, y in tqdm(test_dataloader):
+      X, y = X.to(device), y.to(device)
 
       logit = model(X)
 
